@@ -12,7 +12,7 @@ const projects = [
   
   {
   title: "ChatVerse – Real-Time Social Media Platform",
-  image: "src/assets/projects/chatverse.jpeg",
+  image: "/projects/chatverse.jpeg",
   description:
     "A modern full-stack social media platform built with the MERN stack, and a beautiful responsive UI inspired by Instagram and Messenger.",
   tech: [
@@ -40,7 +40,7 @@ const projects = [
 },
 {
   title: "Smart Attendance System",
-  image: "src/assets/projects/attendance.jpg",
+  image: "/projects/attendance.jpg",
   description:
     "An AI-powered attendance management system that uses facial recognition for secure, contactless attendance tracking with real-time monitoring, analytics, and an intuitive admin dashboard.",
   tech: [
