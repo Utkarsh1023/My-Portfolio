@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Premium MERN Portfolio (Production-Ready)
 
 This repository contains a premium, modern, responsive portfolio built with the MERN stack.
@@ -61,3 +62,7 @@ The codebase is intended to be Lighthouse-friendly through:
 - code splitting/lazy loading
 - semantic headings and accessible components
 
+=======
+# My-Portfolio
+A modern, responsive developer portfolio built with React, TypeScript, Tailwind CSS, and Framer Motion, showcasing projects, skills, experience, and achievements with smooth animations and a premium UI.
+>>>>>>> b0e901ce7d0fba1a9558eebcefda7f015cde5cec
