@@ -41,8 +41,10 @@ export function ContactSection() {
 
         setStatus("sending");
 
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
         const res = await axios.post(
-          "http://localhost:5000/api/contact",
+          `${API_URL}/api/contact`,
           form,
           {
             headers: { "Content-Type": "application/json" },
@@ -51,14 +53,13 @@ export function ContactSection() {
 
         // Axios resolves only on 2xx
         setStatus("sent");
-        return res;
-
         setForm({
             name: "",
             email: "",
             subject: "",
             message: "",
         });
+        return res;
 
     } catch (err: any) {
       setStatus("error");

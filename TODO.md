@@ -1,18 +1,25 @@
-# TODO
+# Deployment Preparation Checklist
 
-## Featured Projects + Case Studies
-- [ ] Create `client/src/pages/PortfolioHome/projects/projects.ts` with full project dataset (cards + case study content).
-- [ ] Create `client/src/pages/PortfolioHome/components/FeaturedProjectsSection.tsx`:
-  - [ ] Section heading + subtitle
-  - [ ] Filter buttons (All/Frontend/Backend/Full Stack/AI) with Framer Motion active highlight + layout animations
-  - [ ] Search bar (title/tech/keywords) updating instantly
-  - [ ] Responsive grid (3/2/1 columns)
-  - [ ] Premium project cards with required image/overlay/title/description/tech badges/features/action buttons
-  - [ ] Scroll reveal animations (once only) + stagger
-- [ ] Create `client/src/pages/ProjectCaseStudy/ProjectCaseStudyPage.tsx` dynamic route `/projects/:projectId` with all required sections.
-- [ ] Update `client/src/App.tsx` router to include `/projects/:projectId`.
-- [x] Integrate `FeaturedProjectsSection` into `client/src/pages/PortfolioHome/PortfolioHome.tsx` under `id="projects"`.
+## Repo Hygiene
+- [x] Create root `.gitignore` (node_modules, dist, .env, logs)
+- [x] Untrack `client/node_modules`, `client/dist`, `server/.env` from git
 
-- [x] Run client typecheck/build and sanity-test visuals/animations.
+## Backend (Render)
+- [x] Point `server/package.json` start script to `node src/index.js`
+- [x] Update CORS in `server/src/index.js` to support env-based origins
+- [x] Add `render.yaml` blueprint for backend service
 
+## Frontend (Vercel)
+- [x] Update `ContactSection.tsx` to use `import.meta.env.VITE_API_URL`
+- [x] Update `client/.env.example` with correct API URL
+- [x] Add `client/vercel.json` for SPA rewrites
 
+## Docs
+- [x] Rewrite README with Vercel + Render deployment instructions
+
+## Verify
+- [x] Run `npm run build` in client — ✅ build succeeds (no errors)
+- [x] Verify server syntax — ✅ all files pass `node --check`
+- [x] Verify server behavior — ✅ server fails early if DB misconfigured (correct)
+- [x] All `package.json` files valid JSON
+- [x] `vercel.json` valid JSON
