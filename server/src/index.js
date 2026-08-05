@@ -13,6 +13,11 @@ import { apiRouter } from './routes/index.js';
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Render (and other hosts) sit behind a reverse proxy and set the
+// X-Forwarded-For header. Trust the first proxy hop so express-rate-limit
+// can correctly identify client IPs (fixes ERR_ERL_UNEXPECTED_X_FORWARDED_FOR).
+app.set('trust proxy', 1);
+
 // MongoDB is optional for the contact/email feature. If it fails, do not crash
 // the server so /api/contact (and other DB-independent routes) still work.
 try {

@@ -24,11 +24,15 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 30,
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  skip: (req) => req.method === 'OPTIONS'
 });
 
 router.use(limiter);
-router.use(helmet());
+// Helmet is already applied at the app level (with cross-origin resource
+// policy). Re-applying it here with the default policy would override that,
+// so this router relies on the global helmet middleware.
+// router.use(helmet());
 
 router.post('/', async (req, res) => {
   const { name, email, subject, message } = req.body || {};
