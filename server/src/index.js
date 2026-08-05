@@ -23,7 +23,13 @@ const envOrigins = (process.env.CLIENT_ORIGIN || '')
   .filter(Boolean);
 const allowedOrigins = [...new Set([...defaultOrigins, ...envOrigins])];
 
-await connectDB();
+// MongoDB is optional for the contact/email feature. If it fails, do not crash
+// the server so /api/contact (and other DB-independent routes) still work.
+try {
+  await connectDB();
+} catch (err) {
+  console.error('MongoDB initialization error (continuing without DB):', err.message);
+}
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(

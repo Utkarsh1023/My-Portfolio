@@ -30,7 +30,7 @@ const limiter = rateLimit({
 router.use(limiter);
 router.use(helmet());
 
-router.post('/contact', async (req, res) => {
+router.post('/', async (req, res) => {
   const { name, email, subject, message } = req.body || {};
 
   // Basic validation (keep strict but user-friendly)

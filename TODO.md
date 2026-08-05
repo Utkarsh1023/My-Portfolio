@@ -1,25 +1,12 @@
-# Deployment Preparation Checklist
+# Fix Contact Form Email Delivery (Deployment)
 
-## Repo Hygiene
-- [x] Create root `.gitignore` (node_modules, dist, .env, logs)
-- [x] Untrack `client/node_modules`, `client/dist`, `server/.env` from git
-
-## Backend (Render)
-- [x] Point `server/package.json` start script to `node src/index.js`
-- [x] Update CORS in `server/src/index.js` to support env-based origins
-- [x] Add `render.yaml` blueprint for backend service
-
-## Frontend (Vercel)
-- [x] Update `ContactSection.tsx` to use `import.meta.env.VITE_API_URL`
-- [x] Update `client/.env.example` with correct API URL
-- [x] Add `client/vercel.json` for SPA rewrites
-
-## Docs
-- [x] Rewrite README with Vercel + Render deployment instructions
-
-## Verify
-- [x] Run `npm run build` in client — ✅ build succeeds (no errors)
-- [x] Verify server syntax — ✅ all files pass `node --check`
-- [x] Verify server behavior — ✅ server fails early if DB misconfigured (correct)
-- [x] All `package.json` files valid JSON
-- [x] `vercel.json` valid JSON
+## Steps
+- [x] Gather understanding of codebase (client + server + deployment config)
+- [x] Confirm plan with user
+- [x] 1. Create `client/.env` pointing to local backend for dev
+- [x] 2. Make MongoDB connection non-fatal in `server/src/lib/db.js` and `server/src/index.js`
+- [x] 3. Fix contact route double-path bug (`/contact/contact` → `/api/contact`)
+- [ ] 4. Document Render env vars (MONGODB_URI, CLIENT_ORIGIN, EMAIL_USER, EMAIL_PASS, JWT_SECRET)
+- [ ] 5. Document Vercel env var (VITE_API_URL)
+- [ ] 6. Document MongoDB Atlas network access (0.0.0.0/0)
+- [ ] 7. Provide Postman + browser testing instructions
