@@ -1,12 +1,16 @@
 # Fix Contact Form Email Delivery (Deployment)
 
-## Steps
-- [x] Gather understanding of codebase (client + server + deployment config)
-- [x] Confirm plan with user
-- [x] 1. Create `client/.env` pointing to local backend for dev
-- [x] 2. Make MongoDB connection non-fatal in `server/src/lib/db.js` and `server/src/index.js`
-- [x] 3. Fix contact route double-path bug (`/contact/contact` → `/api/contact`)
-- [ ] 4. Document Render env vars (MONGODB_URI, CLIENT_ORIGIN, EMAIL_USER, EMAIL_PASS, JWT_SECRET)
-- [ ] 5. Document Vercel env var (VITE_API_URL)
-- [ ] 6. Document MongoDB Atlas network access (0.0.0.0/0)
-- [ ] 7. Provide Postman + browser testing instructions
+## Progress
+- [x] Fix MongoDB non-fatal connection (server starts even if DB down)
+- [x] Fix contact route double-path bug (`/contact/contact` → `/api/contact`)
+- [x] Create `client/.env` for local dev
+- [x] Create production-ready CORS config (`server/src/middlewares/cors.js`)
+- [x] Rewrite `server/src/index.js` with proper preflight handling
+- [x] Add CORS-aware error handler (returns 403 with helpful message)
+- [x] Verify preflight OPTIONS from Vercel origin returns correct headers
+
+## Remaining (config steps for user)
+- [ ] Set `CLIENT_ORIGIN=https://utkarsh-anand-portfolio.vercel.app` on Render
+- [ ] Set `VITE_API_URL=https://utkarshs-portfolio.onrender.com` on Vercel
+- [ ] Redeploy both frontend and backend
+- [ ] Verify email sends

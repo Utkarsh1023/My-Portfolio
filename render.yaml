@@ -12,39 +12,31 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+
+      # Render injects PORT automatically; keep 10000 as a safe default.
       - key: PORT
         value: 10000
+
+      # --- Required (set in Render dashboard) ---
       - key: MONGODB_URI
-        sync: false          # set in Render dashboard
+        sync: false          # MUST match your Atlas cluster; set in Render dashboard
       - key: JWT_SECRET
         sync: false
-      - key: JWT_EXPIRES_IN
-        value: 7d
       - key: CLIENT_ORIGIN
-        sync: false          # comma-separated Vercel frontend URL(s)
+        sync: false          # comma-separated frontend URL(s), e.g. https://your-portfolio.vercel.app
       - key: EMAIL_USER
-        sync: false
+        sync: false          # Gmail address used to login to SMTP
       - key: EMAIL_PASS
-        sync: false
+        sync: false          # Gmail App Password (16 chars, no spaces)
+
+      # --- Optional (defaults to Gmail SMTP) ---
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
         value: 465
-      - key: SMTP_USER
-        sync: false
-      - key: SMTP_PASS
-        sync: false
       - key: EMAIL_FROM
-        sync: false
+        sync: false          # optional; defaults to EMAIL_USER
       - key: CONTACT_RECEIVER_EMAIL
-        sync: false
-      - key: CLOUDINARY_CLOUD_NAME
-        sync: false
-      - key: CLOUDINARY_API_KEY
-        sync: false
-      - key: CLOUDINARY_API_SECRET
-        sync: false
-      - key: GITHUB_TOKEN
-        sync: false
-      - key: GITHUB_USERNAME
-        sync: false
+        sync: false          # optional; defaults to EMAIL_FROM
+      - key: JWT_EXPIRES_IN
+        value: 7d

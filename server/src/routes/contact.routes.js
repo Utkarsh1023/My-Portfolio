@@ -57,11 +57,13 @@ router.post('/', async (req, res) => {
     });
   }
 
-  const EMAIL_USER = requiredEnv('EMAIL_USER');
-  const EMAIL_PASS = requiredEnv('EMAIL_PASS');
+  const EMAIL_USER = requiredEnv('EMAIL_USER') || requiredEnv('SMTP_USER');
+  const EMAIL_PASS = requiredEnv('EMAIL_PASS') || requiredEnv('SMTP_PASS');
+  const EMAIL_FROM = requiredEnv('EMAIL_FROM') || EMAIL_USER;
+  const RECEIVER = requiredEnv('CONTACT_RECEIVER_EMAIL') || EMAIL_FROM;
 
   if (!EMAIL_USER || !EMAIL_PASS) {
-    console.error('[contact] Missing EMAIL_USER or EMAIL_PASS env vars');
+    console.error('[contact] Missing EMAIL_USER/EMAIL_PASS (or SMTP_USER/SMTP_PASS) env vars');
     return res.status(500).json({
       success: false,
       message: 'Email service is not configured'
@@ -76,15 +78,13 @@ router.post('/', async (req, res) => {
       messageLen: clean.message.length
     });
 
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: EMAIL_USER,
-        pass: EMAIL_PASS
-      }
-    });
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
     const html = `
       <h2>New Contact Request</h2>
@@ -94,10 +94,10 @@ router.post('/', async (req, res) => {
       <p><b>Message:</b></p>
       <p style="white-space:pre-wrap;">${escapeHtml(clean.message)}</p>
     `;
-
-    const info = await transporter.sendMail({
-      from: EMAIL_USER,
-      to: EMAIL_USER,
+await transporter.verify();
+const info = await transporter.sendMail({
+      from: EMAIL_FROM,
+      to: RECEIVER,
       subject: `Portfolio Contact: ${clean.subject}`,
       html,
       text: `New contact request\n\nName: ${clean.name}\nEmail: ${clean.email}\nSubject: ${clean.subject}\nMessage:\n${clean.message}`
